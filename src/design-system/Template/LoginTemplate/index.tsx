@@ -1,0 +1,125 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Button, CircularProgress } from '@mui/material';
+import useAuthService from '@/hooks/API/useAuthService';
+import { InputComponent } from '@/design-system/Atoms';
+import Cookies from 'js-cookie';
+import { login as setLogin } from '@/lib/redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { routeModule } from 'next/dist/build/templates/pages';
+import { useRouter } from 'next/navigation';
+
+
+interface Credentials {
+  username: string;
+  password: string;
+}
+
+const LoginTemplate: React.FC = () => {
+  const dispatch = useDispatch()
+  const router  = useRouter()
+  const { login } = useAuthService();
+  const [credentials, setCredentials] = useState<Credentials>({
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState<{
+    username?: string;
+    password?: string;
+  }>({});
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const validateForm = () => {
+    const newErrors: { username?: string; password?: string } = {};
+
+    // Email validation
+    
+
+    // Password validation
+    if (!credentials.password) {
+      newErrors.password = 'Password is required';
+    } else if (credentials.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: '' })); // Clear the error for the field
+  };
+
+  const handleLogin = async() => {
+      if (validateForm()) {
+        const user = await login(credentials.username, credentials.password);
+        debugger
+        if (user) {
+          const updatedUser = { ...user, password: credentials.password };
+          Cookies.set('user', JSON.stringify(updatedUser));
+          dispatch(setLogin(user)); 
+          router.push(`/dashboard/${user.username}`);
+        }
+    }
+  };
+
+ 
+  return (
+    <div style={{ maxWidth: '400px', margin: 'auto', padding: '1rem' }}>
+      <h2>Login</h2>
+      <InputComponent
+        label="Username"
+        name="username"
+        value={credentials.username}
+        onChange={handleInputChange}
+        errorText={errors.username}
+        fullWidth
+        required
+        variant="outlined"
+        sx={{
+          input: { color: '#000000' },
+        }}
+      />
+      <InputComponent
+        label="Password"
+        name="password"
+        type="password"
+        value={credentials.password}
+        onChange={handleInputChange}
+        errorText={errors.password}
+        fullWidth
+        required
+        variant="filled"
+        sx={{
+          input: { color: '#000000' },
+          marginTop: '1rem',
+        }}
+      />
+      <Button
+        onClick={handleLogin}
+        variant="contained"
+        color="primary"
+        fullWidth
+        // disabled={loginIsgLoading}
+        sx={{ marginTop: '1rem' }}
+      >
+        {/* {loginIsgLoading ? (
+          <CircularProgress size={24} color="inherit" />
+        ) : (
+          '
+          '
+        )} */}
+        Log In
+      </Button>
+    </div>
+  );
+};
+
+export default LoginTemplate;
