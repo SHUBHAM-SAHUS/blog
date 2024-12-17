@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   TextField,
@@ -21,13 +21,14 @@ const PostDetails: React.FC<any> = ({ user }) => {
   const [comments, setComments] = useState<{ [key: string]: string }>({});
   const [updatedPosts, setUpdatedPosts] = useState<any[]>([]);
   const { posts, isLoading } = useGetFetchPosts(user?.id ?? '');
-  const { createComment, createCommentIsLoading } = useCreateComments();
+    const { createComment, createCommentIsLoading } = useCreateComments();
+    
 
-  useEffect(() => {
-    if (posts) {
-      setUpdatedPosts(posts);
-    }
-  }, [posts]);
+//   useEffect(() => {
+//     if (posts) {
+//       setUpdatedPosts(posts);
+//     }
+//   }, [posts]);
 
   // Handle posting a new comment
   const handlePostComment = (postId: string) => {
@@ -64,24 +65,40 @@ const PostDetails: React.FC<any> = ({ user }) => {
 
     setComments((prevState) => ({ ...prevState, [postId]: '' })); // Clear the comment field after posting
   };
+    
 
   // Sort posts by the createdAt date
-  const sortedPosts =
-    updatedPosts
-      ?.filter((post) => post.createdAt)
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      ) || [];
+const sortedPosts = useMemo(() => {
+  if (!posts || !Array.isArray(posts)) return []; // Ensure posts is a valid array
 
+  return (
+    posts
+      ?.filter((user: any) => user.posts && Array.isArray(user.posts)) // Check if posts exists
+      ?.flatMap((user: any) => user.posts) // Flatten all posts into a single array
+      ?.filter((post: any) => post?.createdAt) // Keep posts with valid createdAt field
+      ?.sort(
+        (a: any, b: any) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ) || []
+  );
+}, [posts]);
+
+console.log('Sorted Posts:', sortedPosts);
+
+// console.log('loggss', sortedPosts);
   return (
     <Box sx={{ flex: 1, padding: 2 }}>
       <TextField
         label="Search Posts"
         variant="outlined"
         fullWidth
-        onChange={(e) => setSearch(e.target.value)}
-        sx={{ marginBottom: 2 }}
+        value={search} // Ensure input reflects the state
+        onChange={(e) => setSearch(e.target.value)} // Update state on change
+        // sx={{ marginBottom: 2 }}
+        sx={{
+          input: { color: '#000000' },
+          marginTop: '1rem',
+        }}
       />
       <Box>
         {isLoading ? (
