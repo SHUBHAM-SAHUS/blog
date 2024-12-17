@@ -30,7 +30,6 @@ const HomeListTemplate: React.FC = () => {
     <LoadingSpinner />;
   }
 
-  console.log(repoList);
 
   return (
     <Box

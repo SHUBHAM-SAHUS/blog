@@ -10,7 +10,7 @@ const useUserList = () => {
     data: users,
     isLoading: isAllProfileTagsLoading,
     refetch: refetchUserList,
-  } = useQuery<any>(['userlist'], () => AuthAPIServices.userDetails());
+  } = useQuery<any>(['userlisttttt'], () => AuthAPIServices.userDetails());
 
   return {
     users,
@@ -20,5 +20,7 @@ const useUserList = () => {
 };
 
 export default useUserList;
+
+
 
 

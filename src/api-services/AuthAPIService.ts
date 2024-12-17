@@ -18,7 +18,7 @@ class AuthAPIService {
   };
 
 
-  userDetails = async () => {
+  userDetails = async () => { 
     const endpoint = `${LOGIN}`;
     return this.services.get<any>(endpoint);
   };

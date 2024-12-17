@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useUserList } from '@/hooks/API';
 import { UserInfo } from '@/design-system/Organisms';
 import PostDetails from '@/design-system/Organisms/PostDetails';
+import ConnectionDetails from '@/design-system/Organisms/ConnectionDetails';
 // import useGetAllUsers from '@/hooks/useGetUsers';
 
 interface User {
@@ -25,7 +26,11 @@ interface User {
 
 const UserDashboard: React.FC = () => {
     //   const { users } = useGetAllUsers(); // Assuming this returns an array of User objects
-const { users, isAllProfileTagsLoading, refetchUserList } = useUserList();
+  const { users, isAllProfileTagsLoading, refetchUserList } = useUserList();
+  
+
+  console.log('users', users);
+
   const router = useRouter();
   const user = useSelector(
     (state: RootState) => state.auth.user as User | null,
@@ -67,7 +72,7 @@ const { users, isAllProfileTagsLoading, refetchUserList } = useUserList();
     <Box sx={{ display: 'flex', gap: 2 }}>
       <UserInfo user={user} />
       <PostDetails user={user} />
-      {/* <RightPanel connections={users} /> */}
+      <ConnectionDetails connections={users} />
     </Box>
   );
 };

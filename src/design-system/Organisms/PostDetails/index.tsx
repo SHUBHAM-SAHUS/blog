@@ -75,7 +75,6 @@ const PostDetails: React.FC<any> = ({ user }) => {
              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
          ) || [];
 
-     console.log('itemm', sortedPosts);
 
   return (
     <Box sx={{ flex: 1, padding: 2 }}>
@@ -108,7 +107,7 @@ const PostDetails: React.FC<any> = ({ user }) => {
                   borderRadius: 2,
                 }}
               >
-                <Typography variant="h6">{post.content}</Typography>
+                <Typography variant="h6" sx={{color:"#000"}}>{post.content}</Typography>
                 <Typography variant="body2" color="textSecondary">
                   {new Date(post.createdAt).toLocaleString()}
                 </Typography>
@@ -117,7 +116,7 @@ const PostDetails: React.FC<any> = ({ user }) => {
                 <List>
                   {post.comments?.map((comment: any) => (
                     <ListItem key={comment.id}>
-                      <Typography variant="body2">{comment.content}</Typography>
+                      <Typography variant="body2" sx={{color:"#000"}}>{comment.content}</Typography>
                     </ListItem>
                   ))}
                 </List>

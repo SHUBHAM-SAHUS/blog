@@ -8,33 +8,40 @@ import {
   Avatar,
   Typography,
 } from '@mui/material';
-import { User } from '../types/user';
+// import { User } from '../types/user';
 import { useRouter } from 'next/navigation'; // For routing to the profile pag
 import { useSelector } from 'react-redux';
+import { User } from '@/utils/interfaces';
 
 const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
-  const userConnections = useSelector(
-    (state: any) => state.auth.user.connections,
-  );
 
-  const result = connections?.filter((connection) =>
-    userConnections.includes(connection.id),
-  );
-  console.log('result', result);
+
+  
+   const userConnections = useSelector(
+     (state: any) => state.auth.user.connections,
+   );
+   const result = connections?.filter((connection) =>
+     userConnections.includes(connection.id),
+   );
+
+
+
 
   const [search, setSearch] = useState('');
   const router = useRouter(); // For routing to the profile page
 
   const filteredConnections = result?.filter(
     (user) =>
-      user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-      user.username.toLowerCase().includes(search.toLowerCase()),
+      user?.fullname?.toLowerCase().includes(search.toLowerCase()) ||
+      user?.username?.toLowerCase().includes(search.toLowerCase()),
   );
 
   // Handle navigating to the user's profile page
   const handleNavigateToProfile = (userId: string) => {
     router.push(`/profile/${userId}`);
   };
+
+
 
   return (
     <Box sx={{ width: 300, padding: 2 }}>
@@ -44,7 +51,10 @@ const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
         variant="outlined"
         fullWidth
         onChange={(e) => setSearch(e.target.value)}
-        sx={{ marginBottom: 2 }}
+        sx={{
+          input: { color: '#000000' },
+          marginTop: '1rem',
+        }}
       />
 
       {/* Display filtered connections */}
@@ -68,7 +78,7 @@ const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
             <Box sx={{ marginLeft: 2 }}>
               <Typography variant="body1">{user.fullname}</Typography>
               <Typography variant="body2" color="textSecondary">
-                {user.status}
+                {user.username}
               </Typography>
             </Box>
           </ListItem>
