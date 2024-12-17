@@ -1,5 +1,5 @@
 'use client';
-import { AuthAPIServices } from '@/api-services';
+import { AuthAPIServices, PostAPIServices } from '@/api-services';
 import { SUCCESS_STATUS_CODE } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery } from 'react-query';
@@ -12,7 +12,7 @@ const useGetFetchPosts = (userId: string) => {
         data: userPosts,
         isLoading: isAllPostLoading,
         refetch: refetchUserList,
-      } = useQuery<any>(['userlist'], () => AuthAPIServices.userDetails());
+      } = useQuery<any>(['userlist'], () => PostAPIServices.userPost(userId));
 
 
 

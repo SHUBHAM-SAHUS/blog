@@ -24,12 +24,9 @@ class PostAPIService {
   //   };
 
   userPost = async (id: string) => {
-    const endpoint = `${GET_USER_POSTS}/${id}`;
+    const endpoint = `${GET_USER_POSTS}?user_id=${id}`;
     return this.services.get<any>(endpoint);
   };
-
-
-  
 
   createPost = async (data: any) => {
     const endpoint = `${CREATE_POST}`;
@@ -39,3 +36,5 @@ class PostAPIService {
 
 const PostAPIServices = new PostAPIService(BASE_API_URL);
 export default PostAPIServices;
+
+;

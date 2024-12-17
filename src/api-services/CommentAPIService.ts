@@ -29,7 +29,7 @@ class CommentAPIService {
 
   createComment = async (data: any) => {
     const endpoint = `${CREATE_COMMENT}`;
-    return this.services.put(endpoint, data);
+    return this.services.post(endpoint, data);
   };
 
   commentForPost = async (id: string) => {
