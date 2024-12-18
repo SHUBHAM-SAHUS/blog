@@ -14,7 +14,6 @@ const useAuthService = () => {
       );
 
 
-      debugger
 
       if (user) {
         return {
@@ -60,7 +59,6 @@ const useAuthService = () => {
       await AuthAPIServices.SingUp(payload);
       router.push('/login');
     } catch (error) {
-      console.error(error);
     }
   };
 

@@ -15,7 +15,10 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  IconButton,
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
 import { statusOptions } from '@/utils';
@@ -24,6 +27,7 @@ import { useCreatePost } from '@/hooks/API';
 const EditProfile: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const { updatePost, updatePostIsLoading } = useCreatePost();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     fullname: user?.fullname ?? '',
@@ -32,7 +36,6 @@ const EditProfile: React.FC = () => {
     status: user?.status ?? '',
     profile_image: user?.profile_image ?? '',
   });
-  console.log('username..',user)
 
   const [imagePreview, setImagePreview] = useState<string>(
     user?.profile_image || '',
@@ -74,17 +77,10 @@ const EditProfile: React.FC = () => {
 
   const handleStatusChange = (e: SelectChangeEvent<string>) => {
     const value = e.target.value;
-    if (value !== 'status') {
-      setFormData((prevData) => ({
-        ...prevData,
-        status: value,
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        status: '',
-      }));
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      status: value === 'status' ? '' : value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,8 +91,6 @@ const EditProfile: React.FC = () => {
       return;
     }
 
-    const { id, password, posts, connections,fullname } = user;
-
     if (
       formData.fullname !== user.fullname ||
       formData.username !== user.username ||
@@ -105,180 +99,218 @@ const EditProfile: React.FC = () => {
       formData.profile_image !== user.profile_image
     ) {
       const payload = {
-        id,
+        ...user,
         fullname: formData.fullname,
         username: formData.username,
         email: formData.email,
         status: formData.status,
         profile_image: formData.profile_image,
-        password: password || '',
-        posts,
-        connections,
       };
 
       updatePost(payload);
-
       setValidation('');
+      setShowSuccessAlert(true);
     } else {
       setValidation('No changes detected. Please modify at least one field.');
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Edit Profile
-      </Typography>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#f4f4f4',
+        padding: 3,
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: 600,
+          width: '100%',
+          padding: 3,
+          borderRadius: 3,
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          backgroundColor: '#fff',
+          position: 'relative',
+        }}
+      >
+        <IconButton
+          onClick={() => router.back()}
+          sx={{
+            position: 'absolute',
+            top: 16,
+            left: 16,
+          }}
+        >
+          <ArrowBackIcon sx={{ color: '#000' }} />
+        </IconButton>
 
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <Avatar
-            src={imagePreview}
-            sx={{ width: 150, height: 150, margin: 'auto' }}
-          />
-          <TextField
-            label="Profile Image URL"
-            name="profile_image"
-            value={formData.profile_image}
-            onChange={handleImageChange}
-            fullWidth
-            variant="outlined"
-            sx={{
-              input: { color: '#000000' },
-              marginTop: '1rem',
-            }}
-          />
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            textAlign: 'center',
+            fontWeight: 600,
+            color: '#000',
+            marginBottom: 3,
+          }}
+        >
+          Edit Profile
+        </Typography>
 
-          <TextField
-            label="Full Name"
-            name="fullname"
-            value={formData.fullname}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            sx={{
-              input: { color: '#000000' },
-              marginTop: '1rem',
-            }}
-          />
-
-          <TextField
-            label="Username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            disabled
-            sx={{
-              input: { color: '#000000' },
-              marginTop: '1rem',
-            }}
-          />
-
-          <TextField
-            label="Email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            disabled
-            sx={{
-              input: { color: '#000000' },
-              marginTop: '1rem',
-            }}
-          />
-
-          <FormControl fullWidth variant="outlined">
-            <InputLabel id="status-label">Status</InputLabel>
-            <Select
-              labelId="status-label"
-              label="Status"
-              name="status"
-              value={formData.status || 'status'}
-              onChange={handleStatusChange}
-              fullWidth
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <Box
               sx={{
-                color: 'black',
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black',
-                },
-                '& .MuiSvgIcon-root': {
-                  color: 'black',
-                },
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 3,
               }}
             >
-              <MenuItem
-                value="status"
-                disabled
+              <Avatar
+                src={imagePreview}
+                alt="Profile Image"
                 sx={{
-                  color: 'black',
+                  width: 150,
+                  height: 150,
+                  borderRadius: 2,
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                }}
+              />
+            </Box>
+
+            <TextField
+              label="Profile Image URL"
+              name="profile_image"
+              value={formData.profile_image}
+              onChange={handleImageChange}
+              fullWidth
+              variant="outlined"
+              sx={{ input: { color: '#000' } }}
+            />
+
+            <TextField
+              label="Full Name"
+              name="fullname"
+              value={formData.fullname}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              sx={{ input: { color: '#000' } }}
+            />
+
+            <TextField
+              label="Username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              disabled
+              sx={{ input: { color: '#000' } }}
+            />
+
+            <TextField
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              disabled
+              sx={{ input: { color: '#000' } }}
+            />
+
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="status-label">Status</InputLabel>
+              <Select
+                labelId="status-label"
+                label="Status"
+                name="status"
+                value={formData.status || 'status'}
+                onChange={handleStatusChange}
+                sx={{
+                  color: '#000',
                   '.MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    color: 'black',
+                    borderColor: '#000',
                   },
                 }}
               >
-                Status...
-              </MenuItem>
-              {statusOptions.map((option) => (
                 <MenuItem
-                  key={option.value}
-                  value={option.value}
+                  value="status"
+                  disabled
                   sx={{
-                    color: 'black',
-                    '.MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'black',
+                    color: '#000',
+                    '&.Mui-selected': {
+                      backgroundColor: '#f0f0f0',
                     },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'black',
-                    },
-                    '& .MuiSvgIcon-root': {
-                      color: 'black',
+                    '&:hover': {
+                      backgroundColor: '#e0e0e0',
                     },
                   }}
                 >
-                  {option.label}
+                  Status...
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+                {statusOptions.map((option) => (
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      color: '#000',
+                      '&.Mui-selected': {
+                        backgroundColor: '#f0f0f0',
+                      },
+                      '&:hover': {
+                        backgroundColor: '#e0e0e0',
+                      },
+                    }}
+                  >
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ marginTop: 2 }}
-          >
-            {updatePostIsLoading ? (
-              <CircularProgress size={24} />
-            ) : (
-              'Save Changes'
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{
+                padding: 1,
+                fontWeight: 600,
+                fontSize: '1rem',
+                textTransform: 'none',
+              }}
+            >
+              {updatePostIsLoading ? (
+                <CircularProgress size={24} sx={{ color: '#fff' }} />
+              ) : (
+                'Save Changes'
+              )}
+            </Button>
+
+            {validation && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{ textAlign: 'center' }}
+              >
+                {validation}
+              </Typography>
             )}
-          </Button>
 
-          {validation && (
-            <Typography variant="body2" color="error" sx={{ mb: 2 }}>
-              {validation}
-            </Typography>
-          )}
-
-          {showSuccessAlert && (
-            <Alert severity="success" sx={{ mb: 2 }}>
-              Profile updated successfully!
-            </Alert>
-          )}
-        </Stack>
-      </form>
+            {showSuccessAlert && (
+              <Alert severity="success" sx={{ textAlign: 'center' }}>
+                Profile updated successfully!
+              </Alert>
+            )}
+          </Stack>
+        </form>
+      </Box>
     </Box>
   );
 };

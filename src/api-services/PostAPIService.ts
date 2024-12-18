@@ -28,7 +28,7 @@ class PostAPIService {
     return this.services.post(endpoint, data);
   };
 
-  updatePost = async (id: string, data: any) => {
+  updatePost = async (id: any, data: any) => {
     const endpoint = `${UPDATE_USER}/${id}`;
     return this.services.put(endpoint, data);
   };

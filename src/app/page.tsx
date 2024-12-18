@@ -1,11 +1,21 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 const Home: React.FC = () => {
   return (
-    <>
-      <h1> home page</h1>
-    </>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        textAlign: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <h1 style={{ fontSize: '2.5rem', color: '#333' }}>
+        Welcome to Home
+      </h1>
+    </div>
   );
 };
 

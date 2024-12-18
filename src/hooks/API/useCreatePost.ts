@@ -17,7 +17,7 @@ const useCreatePost = () => {
     (payload: any) => PostAPIServices.createPost(payload),
     {
       onSuccess: (data: any) => {
-        router.push(`/dashboard/${user.username}`);
+        router.push(`/dashboard/${user?.username}`);
       },
       onError: (error: any) => {
         toast.error(error);
@@ -26,12 +26,12 @@ const useCreatePost = () => {
   );
 
   const { mutate: updatePost, isLoading: updatePostIsLoading } = useMutation(
-    (payload: any) => PostAPIServices.updatePost(user.id, payload),
+    (payload: any) => PostAPIServices.updatePost(user?.id, payload),
     {
       onSuccess: (data: any) => {
         dispatch(setLogin(data));
         Cookies.set('user', JSON.stringify(data));
-        router.push(`/dashboard/${user.username}`);
+        router.push(`/dashboard/${user?.username}`);
       },
       onError: (error: any) => {
         toast.error(error);

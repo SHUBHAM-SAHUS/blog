@@ -1,25 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-// import { Container, Typography, Box, Alert } from '@mui/material';
-import { ButtonComponent, InputComponent } from '@/design-system/Atoms';
-import useAuthService from '@/hooks/API/useAuthService';
 import {
   Box,
-  TextField,
-  Button,
   Typography,
-  Avatar,
   Stack,
-  CircularProgress,
-  Alert,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  SelectChangeEvent,
-  Container,
+  IconButton,
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useRouter } from 'next/navigation';
+import { ButtonComponent, InputComponent } from '@/design-system/Atoms';
+import useAuthService from '@/hooks/API/useAuthService';
+import { SelectChangeEvent } from '@mui/material';
 import { statusOptions } from '@/utils';
 
 interface FormData {
@@ -35,48 +31,40 @@ interface Errors {
   username?: string;
   email?: string;
   password?: string;
-  status?: string;
 }
 
 const SignUpTemplate: React.FC = () => {
   const { signUp } = useAuthService();
+  const router = useRouter();
 
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     username: '',
     email: '',
     password: '',
-    status: 'status', // Default value for the status field
+    status: 'busy', // Default status
   });
-
 
   const [errors, setErrors] = useState<Errors>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: '' })); // Clear error for current input
+    setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const validateForm = (): boolean => {
     const { fullName, username, email, password } = formData;
     const newErrors: Errors = {};
 
-    if (!fullName.trim()) {
-      newErrors.fullName = 'Full Name is required.';
-    }
-
-    if (!username.trim()) {
-      newErrors.username = 'Username is required.';
-    }
-
+    if (!fullName.trim()) newErrors.fullName = 'Full Name is required.';
+    if (!username.trim()) newErrors.username = 'Username is required.';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim()) {
       newErrors.email = 'Email is required.';
     } else if (!emailRegex.test(email)) {
       newErrors.email = 'Please enter a valid email address.';
     }
-
     if (!password.trim()) {
       newErrors.password = 'Password is required.';
     } else if (password.length < 6) {
@@ -84,172 +72,185 @@ const SignUpTemplate: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
-    debugger;
     if (validateForm()) {
-      const { fullName, username, email, password,status } = formData;
-      debugger;
-      signUp(username, password, email, fullName,status);
+      const { fullName, username, email, password, status } = formData;
+      signUp(username, password, email, fullName, status);
     }
   };
 
-   const handleStatusChange = (e: SelectChangeEvent<string>) => {
-     const value = e.target.value;
-     setFormData((prevData) => ({
-       ...prevData,
-       status: value === 'status' ? '' : value, // Reset if "status" is selected
-     }));
-   };
-
-  
+  const handleStatusChange = (e: SelectChangeEvent<string>) => {
+    const value = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      status: value === 'status' ? '' : value,
+    }));
+  };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Typography variant="h4" textAlign="center" gutterBottom>
-        Sign Up
-      </Typography>
-
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#f4f4f4',
+        padding: 2,
+      }}
+    >
       <Box
-        component="form"
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-        onSubmit={handleSignUp}
+        sx={{
+          width: '100%',
+          maxWidth: 500,
+          backgroundColor: '#fff',
+          padding: 4,
+          borderRadius: 3,
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          position: 'relative',
+        }}
       >
-        <InputComponent
-          label="Full Name"
-          name="fullName"
-          type="text"
-          value={formData.fullName}
-          onChange={handleChange}
-          errorText={errors.fullName}
-          fullWidth
-          required
-          variant="outlined"
+        <IconButton
+          onClick={() => router.back()}
           sx={{
-            input: { color: '#000000' },
-            marginTop: '1rem',
+            position: 'absolute',
+            top: 16,
+            left: 16,
+            color: '#000',
           }}
-        />
-        <InputComponent
-          label="Username"
-          name="username"
-          type="text"
-          value={formData.username}
-          onChange={handleChange}
-          errorText={errors.username}
-          fullWidth
-          required
-          variant="outlined"
+        >
+          <ArrowBackIcon />
+        </IconButton>
+
+        <Typography
+          variant="h4"
+          gutterBottom
           sx={{
-            input: { color: '#000000' },
-            marginTop: '1rem',
+            textAlign: 'center',
+            fontWeight: 600,
+            color: '#000',
           }}
-        />
-        <InputComponent
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          errorText={errors.email}
-          fullWidth
-          required
-          variant="outlined"
-          sx={{
-            input: { color: '#000000' },
-            marginTop: '1rem',
-          }}
-        />
-        <InputComponent
-          label="Password"
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          errorText={errors.password}
-          fullWidth
-          required
-          variant="outlined"
-          sx={{
-            input: { color: '#000000' },
-            marginTop: '1rem',
-          }}
-        />
-        <FormControl fullWidth variant="outlined">
-          <InputLabel id="status-label">Status</InputLabel>
-          <Select
-            labelId="status-label"
-            label="Status"
-            name="status"
-            value={formData.status || 'status'}
-            onChange={handleStatusChange}
-            fullWidth
-            sx={{
-              color: 'black',
-              '.MuiOutlinedInput-notchedOutline': {
-                borderColor: 'black',
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'black',
-              },
-              '& .MuiSvgIcon-root': {
-                color: 'black',
-              },
-            }}
-          >
-            <MenuItem
-              value="status"
-              disabled
+        >
+          Sign Up
+        </Typography>
+
+        <form onSubmit={handleSignUp}>
+          <Stack spacing={3}>
+            <InputComponent
+              label="Full Name"
+              name="fullName"
+              type="text"
+              value={formData.fullName}
+              onChange={handleChange}
+              errorText={errors.fullName}
+              fullWidth
+              required
+              variant="outlined"
               sx={{
-                color: 'black',
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black',
-                },
-                '& .MuiSvgIcon-root': {
-                  color: 'black',
-                },
+                input: { color: '#000' },
               }}
-            >
-              Status...
-            </MenuItem>
-            {statusOptions.map((option) => (
-              <MenuItem
-                key={option.value}
-                value={option.value}
+            />
+
+            <InputComponent
+              label="Username"
+              name="username"
+              type="text"
+              value={formData.username}
+              onChange={handleChange}
+              errorText={errors.username}
+              fullWidth
+              required
+              variant="outlined"
+              sx={{
+                input: { color: '#000' },
+              }}
+            />
+
+            <InputComponent
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              errorText={errors.email}
+              fullWidth
+              required
+              variant="outlined"
+              sx={{
+                input: { color: '#000' },
+              }}
+            />
+
+            <InputComponent
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              errorText={errors.password}
+              fullWidth
+              required
+              variant="outlined"
+              sx={{
+                input: { color: '#000' },
+              }}
+            />
+
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="status-label" sx={{ color: '#000' }}>
+                Status
+              </InputLabel>
+              <Select
+                labelId="status-label"
+                label="Status"
+                name="status"
+                value={formData.status || 'status'}
+                onChange={handleStatusChange}
                 sx={{
-                  color: 'black',
+                  color: '#000',
                   '.MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black',
+                    borderColor: '#000',
                   },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    color: 'black',
+                  '.MuiMenuItem-root': {
+                    color: '#000',
                   },
                 }}
               >
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <ButtonComponent
-          type="submit"
-          label="Sign Up"
-          variant="contained"
-          color="primary"
-          fullWidth
-        />
+                <MenuItem value="status" disabled>
+                  Status...
+                </MenuItem>
+                {statusOptions.map((option) => (
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      color: '#000',
+                    }}
+                  >
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <ButtonComponent
+              type="submit"
+              label="Sign Up"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                fontWeight: 600,
+                textTransform: 'none',
+              }}
+            />
+          </Stack>
+        </form>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

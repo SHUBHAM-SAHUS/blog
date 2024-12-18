@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-// Dynamically import the dashboardTemplate component
 const DashboardTemplate = dynamic(
   () => import('@/design-system/Template/dashboardTemplate'),
   { ssr: false },

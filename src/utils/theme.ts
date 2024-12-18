@@ -41,7 +41,7 @@ const theme = createTheme({
     },
     customColors: {
       purple: '#BAA1FF',
-      secondaryPurple: '#9b59b6',
+      secondaryPurple: '#ecf0f3',
       tertiaryPurple: '#8e44ad',
       pink: '#fe649f',
       green: '#5cc9b5',

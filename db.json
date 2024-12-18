@@ -34,8 +34,223 @@
         "9e61",
         "c08a"
       ]
+    },
+    {
+      "id": "01a5",
+      "username": "sameer",
+      "password": "123456",
+      "email": "sameer@gmail.com",
+      "fullName": "sameer",
+      "status": "available",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "9e61",
+        "c08a",
+        "b1cd"
+      ]
+    },
+    {
+      "id": "65b3",
+      "username": "sameer",
+      "password": "123456",
+      "email": "shubhamsahu1396@gmail.com",
+      "fullName": "shubhm",
+      "status": "away",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "9e61",
+        "c08a",
+        "b1cd",
+        "01a5"
+      ]
+    },
+    {
+      "id": "c38c",
+      "username": "vishal",
+      "fullname": "vishal",
+      "email": "vishal@gmail.com",
+      "status": "dnd",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "9e61",
+        "c08a",
+        "b1cd",
+        "01a5",
+        "65b3"
+      ],
+      "password": "123456"
+    },
+    {
+      "id": "f2e9",
+      "username": "sameer",
+      "password": "123456",
+      "email": "hello@gmail.com",
+      "fullName": "hello",
+      "status": "away",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "9e61",
+        "c08a",
+        "b1cd",
+        "01a5",
+        "65b3",
+        "c38c"
+      ]
     }
   ],
-  "posts": [],
-  "comments": []
+  "posts": [
+    {
+      "id": "cca7",
+      "user_id": "b1cd",
+      "content": "gvgvgv",
+      "createdAt": "2024-12-18T09:02:55.980Z",
+      "comments": []
+    },
+    {
+      "id": "bd49",
+      "user_id": "01a5",
+      "content": "fcfgc",
+      "createdAt": "2024-12-18T09:09:36.586Z",
+      "comments": []
+    },
+    {
+      "id": "454c",
+      "user_id": "9e61",
+      "content": "HELLO",
+      "createdAt": "2024-12-18T09:39:34.492Z",
+      "comments": []
+    },
+    {
+      "id": "f944",
+      "user_id": "9e61",
+      "content": "BHBVHBVD",
+      "createdAt": "2024-12-18T09:48:16.063Z",
+      "comments": []
+    },
+    {
+      "id": "078e",
+      "user_id": "9e61",
+      "content": "VGVGV",
+      "createdAt": "2024-12-18T09:48:22.042Z",
+      "comments": []
+    },
+    {
+      "id": "17b0",
+      "user_id": "9e61",
+      "content": "GVGVHVHV",
+      "createdAt": "2024-12-18T09:48:28.396Z",
+      "comments": []
+    },
+    {
+      "id": "e9a5",
+      "user_id": "c38c",
+      "content": "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "createdAt": "2024-12-18T10:20:02.279Z",
+      "comments": []
+    }
+  ],
+  "comments": [
+    {
+      "id": "86f3",
+      "post_id": "cca7",
+      "user_id": "b1cd",
+      "content": "gvg"
+    },
+    {
+      "id": "0ce0",
+      "post_id": "cca7",
+      "user_id": "b1cd",
+      "content": "bhb"
+    },
+    {
+      "id": "de76",
+      "post_id": "cca7",
+      "user_id": "b1cd",
+      "content": "bbb "
+    },
+    {
+      "id": "9f70",
+      "post_id": "454c",
+      "user_id": "9e61",
+      "content": "GV GVGV"
+    },
+    {
+      "id": "c750",
+      "post_id": "454c",
+      "user_id": "9e61",
+      "content": "VVV G GV"
+    },
+    {
+      "id": "f377",
+      "post_id": "454c",
+      "user_id": "9e61",
+      "content": "V V GV VGV "
+    },
+    {
+      "id": "ca62",
+      "post_id": "454c",
+      "user_id": "9e61",
+      "content": " V V "
+    },
+    {
+      "id": "bcdc",
+      "post_id": "17b0",
+      "user_id": "9e61",
+      "content": "V GG"
+    },
+    {
+      "id": "f980",
+      "post_id": "17b0",
+      "user_id": "9e61",
+      "content": "FCGFCVGCV"
+    },
+    {
+      "id": "1900",
+      "post_id": "17b0",
+      "user_id": "9e61",
+      "content": "VGGV GV"
+    },
+    {
+      "id": "76ee",
+      "post_id": "078e",
+      "user_id": "9e61",
+      "content": "V GVH"
+    },
+    {
+      "id": "0c5d",
+      "post_id": "078e",
+      "user_id": "9e61",
+      "content": "VGV G"
+    },
+    {
+      "id": "1fd7",
+      "post_id": "e9a5",
+      "user_id": "c38c",
+      "content": "hbhb"
+    },
+    {
+      "id": "b526",
+      "post_id": "bd49",
+      "user_id": "01a5",
+      "content": "gvgvgv"
+    },
+    {
+      "id": "1d07",
+      "post_id": "bd49",
+      "user_id": "01a5",
+      "content": "gvvghvhgvcghfc"
+    },
+    {
+      "id": "026a",
+      "post_id": "bd49",
+      "user_id": "01a5",
+      "content": "gvgfcfg gvgvg"
+    },
+    {
+      "id": "d29e",
+      "post_id": "bd49",
+      "user_id": "01a5",
+      "content": "fcgfcfgc"
+    }
+  ]
 }

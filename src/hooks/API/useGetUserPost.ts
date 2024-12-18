@@ -49,10 +49,7 @@ const useGetFetchPosts = (userId: string) => {
 
             return { ...post, comments };
           } catch (error) {
-            console.error(
-              `Failed to fetch comments for post ${post.id}`,
-              error,
-            );
+            
             return { ...post, comments: [] };
           }
         }),
