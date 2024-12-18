@@ -73,6 +73,12 @@ const useGetFetchPosts = (userId: string) => {
     },
   );
 
+
+
+  
+
+
+
   return {
     posts: postsWithComments || [],
     isLoading: isPostsLoading || isCommentsLoading,

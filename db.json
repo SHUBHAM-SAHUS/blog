@@ -63,6 +63,39 @@
         "1ce9",
         "6e76"
       ]
+    },
+    {
+      "username": "abcd",
+      "fullname": "abcd@gmail.com",
+      "email": "abcd",
+      "status": "away",
+      "profile_image": "https://via.placeholder.com/150",
+      "password": "",
+      "connections": [
+        "4e2a",
+        "79a8",
+        "1ce9",
+        "6e76",
+        "681c"
+      ],
+      "id": "5ab4"
+    },
+    {
+      "id": "e1eb",
+      "username": "sonam",
+      "password": "123456",
+      "email": "sonam@gmail.com",
+      "fullName": "sonam",
+      "status": "Busy",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "4e2a",
+        "79a8",
+        "1ce9",
+        "6e76",
+        "681c",
+        "5ab4"
+      ]
     }
   ],
   "posts": [

@@ -2,12 +2,12 @@ import { API_ENDPOINTS, BASE_API_URL, Repo, RepoResponse } from '@/utils';
 import CoreAPIService from './CoreAPIService';
 
 const {
-  POST: {  
-   GET_ALL_POSTS,
+  POST: {
+    GET_ALL_POSTS,
     CREATE_POST,
     DELETE_POST,
-    GET_USER_POSTS, 
-  
+    GET_USER_POSTS,
+    UPDATE_USER,
   },
 } = API_ENDPOINTS;
 // ******  TODO: 'AUTH API SERVICES'********
@@ -31,6 +31,11 @@ class PostAPIService {
   createPost = async (data: any) => {
     const endpoint = `${CREATE_POST}`;
     return this.services.post(endpoint, data);
+  };
+
+  updatePost = async (id:string,data: any) => {
+    const endpoint = `${UPDATE_USER}/${id}`;
+    return this.services.put(endpoint, data);
   };
 }
 

@@ -3,13 +3,15 @@ export const API_ENDPOINTS = {
   AUTH: {
     SIGN_UP: '/users',
     LOGIN: '/users',
-    USERS:'/users',
+    USERS: '/users',
+    // UPDATE_USER:'',
   },
   POST: {
     GET_ALL_POSTS: '/posts',
     CREATE_POST: '/posts',
     DELETE_POST: '/posts',
     GET_USER_POSTS: '/posts',
+    UPDATE_USER: '/users',
   },
   COMMENT: {
     GET_ALL_COMMENTS: '/comments',

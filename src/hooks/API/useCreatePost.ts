@@ -24,12 +24,30 @@ const user = useSelector((state: RootState) => state.auth.user);
         toast.error(error);
       },
     });
+  
+  
+  const { mutate: updatePost, isLoading: updatePostIsLoading } = useMutation(
+    (payload: any) => PostAPIServices.updatePost(payload.id,payload),
+    {
+      onSuccess: (data: any) => {
+        debugger;
+        router.push(`/dashboard/${user.username}`);
+      },
+      onError: (error: any) => {
+        toast.error(error);
+      },
+    },
+  );
+  
 
   return {
     createPost,
     createPostIsLoading,
+    updatePost,
+    updatePostIsLoading,
   };
 };
 
 export default useCreatePost;
+
 

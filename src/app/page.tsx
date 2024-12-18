@@ -1,12 +1,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const HomeListTemplate = dynamic(
-  () => import('@/design-system/Template/HomeListTemplate'),
-  {
-    ssr: false,
-  },
-);
+
 
 const Home: React.FC = () => {
   return (
