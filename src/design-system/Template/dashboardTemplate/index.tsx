@@ -1,9 +1,6 @@
 'use client';
 
 import React from 'react';
-// import LeftPanel from '@/components/common/LeftPanel';
-// import MiddlePanel from '@/components/common/MiddlePanel';
-// import RightPanel from '@/components/common/RightPanel';
 import { Box, Button, Container, Typography } from '@mui/material';
 import { RootState } from '@/lib/redux/store';
 import { useSelector } from 'react-redux';
@@ -13,7 +10,6 @@ import { UserInfo } from '@/design-system/Organisms';
 import PostDetails from '@/design-system/Organisms/PostDetails';
 import Grid from '@mui/material/Grid';
 import ConnectionDetails from '@/design-system/Organisms/ConnectionDetails';
-// import useGetAllUsers from '@/hooks/useGetUsers';
 
 interface User {
   id: string;
@@ -22,19 +18,15 @@ interface User {
   fullname: string;
   status: string;
   profile_image: string;
-  [key: string]: any; // Add for additional properties
+  [key: string]: any;
 }
 
 const UserDashboard: React.FC = () => {
-  //   const { users } = useGetAllUsers(); // Assuming this returns an array of User objects
   const { users, isAllProfileTagsLoading, refetchUserList } = useUserList();
   const router = useRouter();
   const user = useSelector(
     (state: RootState) => state.auth.user as User | null,
   );
-  console.log('userrr',users)
-
-
 
   if (!user) {
     return (
@@ -79,7 +71,7 @@ const UserDashboard: React.FC = () => {
             <PostDetails user={user} />
           </Grid>
           <Grid item sm={6} md={3}>
-           <ConnectionDetails connections={users} />
+            <ConnectionDetails connections={users} />
           </Grid>
         </Grid>
       </Container>

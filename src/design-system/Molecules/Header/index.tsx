@@ -23,10 +23,9 @@ const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   const handleLogout = (): void => {
-    // Handle logout (clear user Cookies)
     Cookies.remove('user');
     dispatch(logout());
-    router.push('/'); // Redirect to home page after logout
+    router.push('/');
   };
 
   return (

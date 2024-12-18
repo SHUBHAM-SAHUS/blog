@@ -1,19 +1,18 @@
 import dynamic from 'next/dynamic';
-import React from 'react'
+import React from 'react';
 
 const SignUpPage = () => {
-     const SignUpTemplate = dynamic(
-          () => import('@/design-system/Template/SignUpTemplate'),
-          {
-            ssr: false,
-          },
-        );
+  const SignUpTemplate = dynamic(
+    () => import('@/design-system/Template/SignUpTemplate'),
+    {
+      ssr: false,
+    },
+  );
   return (
-      <div>
-     <SignUpTemplate/>
-      
+    <div>
+      <SignUpTemplate />
     </div>
-  )
-}
+  );
+};
 
 export default SignUpPage;

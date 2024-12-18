@@ -5,7 +5,7 @@ import CircularProgress, {
 import Box from '@mui/material/Box';
 
 interface LoadingSpinnerProps extends CircularProgressProps {
-  fullScreen?: boolean; // Flag to center the loader on the screen
+  fullScreen?: boolean;
 }
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
@@ -41,7 +41,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         zIndex: fullScreen ? 9999 : 'auto',
         backgroundColor: fullScreen
           ? 'rgba(255, 255, 255, 0.8)'
-          : 'transparent', // Optional overlay for fullscreen
+          : 'transparent',
       }}
     >
       {spinner}

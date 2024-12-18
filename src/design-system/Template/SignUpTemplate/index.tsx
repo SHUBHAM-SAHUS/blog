@@ -69,10 +69,10 @@ const SignUpTemplate: React.FC = () => {
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    debugger
+    debugger;
     if (validateForm()) {
       const { fullName, username, email, password } = formData;
-      debugger
+      debugger;
       signUp(username, password, email, fullName);
     }
   };
@@ -90,9 +90,6 @@ const SignUpTemplate: React.FC = () => {
       >
         <InputComponent
           label="Full Name"
-        
-        
-        
           name="fullName"
           type="text"
           value={formData.fullName}
@@ -154,7 +151,6 @@ const SignUpTemplate: React.FC = () => {
         <ButtonComponent
           type="submit"
           label="Sign Up"
-          // isLoading={signUpLoading}
           variant="contained"
           color="primary"
           fullWidth

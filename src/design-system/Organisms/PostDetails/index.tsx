@@ -1,5 +1,5 @@
-'use client'
-import React, { useState, useEffect, useMemo } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   TextField,
@@ -12,73 +12,63 @@ import {
 import { useCreateComments, useGetFetchPosts } from '@/hooks/API';
 
 const PostDetails: React.FC<any> = ({ user }) => {
-  const [search, setSearch] = useState<string>(''); // State for search input
+  const [search, setSearch] = useState<string>('');
   const [comments, setComments] = useState<{ [key: string]: string }>({});
-  const [updatedPosts, setUpdatedPosts] = useState<any[]>([]); // Local state for posts
+  const [updatedPosts, setUpdatedPosts] = useState<any[]>([]);
 
   const { posts, isLoading } = useGetFetchPosts(user?.id ?? '');
   const { createComment, createCommentIsLoading } = useCreateComments();
 
+  useEffect(() => {
+    if (posts) {
+      setUpdatedPosts(posts);
+    }
+  }, [posts]);
 
-    
-     useEffect(() => {
-       if (posts) {
-         setUpdatedPosts(posts);
-       }
-     }, [posts]);
+  const handlePostComment = (postId: string) => {
+    const comment = comments[postId];
+    if (!comment.trim()) return;
 
-     // Handle posting a new comment
-     const handlePostComment = (postId: string) => {
-       const comment = comments[postId];
-         if (!comment.trim()) return; // Don't allow empty comments
-         
-         const payload = {
-           post_id: postId,
-           user_id: user?.id ?? '',
-           content: comment,
-         };
+    const payload = {
+      post_id: postId,
+      user_id: user?.id ?? '',
+      content: comment,
+    };
 
-          
+    createComment(payload);
 
+    setUpdatedPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              comments: [
+                ...post.comments,
+                {
+                  id: Date.now().toString(),
+                  post_id: postId,
+                  user_id: user?.id ?? '',
+                  content: comment,
+                },
+              ],
+            }
+          : post,
+      ),
+    );
 
-       createComment(payload);
+    setComments((prevState) => ({ ...prevState, [postId]: '' }));
+  };
 
-       // Update the comments list of the post locally right away
-       setUpdatedPosts((prevPosts) =>
-         prevPosts.map((post) =>
-           post.id === postId
-             ? {
-                 ...post,
-                 comments: [
-                   ...post.comments,
-                   {
-                     id: Date.now().toString(),
-                     post_id: postId,
-                     user_id: user?.id ?? '',
-                     content: comment,
-                   },
-                 ],
-               }
-             : post,
-         ),
-       );
-
-       setComments((prevState) => ({ ...prevState, [postId]: '' })); // Clear the comment field after posting
-     };
-
-     // Sort posts by the createdAt date
-     const sortedPosts =
-       updatedPosts
-         ?.filter((post) => post.createdAt)
-         .sort(
-           (a, b) =>
-             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-         ) || [];
-
+  const sortedPosts =
+    updatedPosts
+      ?.filter((post) => post.createdAt)
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ) || [];
 
   return (
     <Box sx={{ flex: 1, padding: 2 }}>
-      {/* Search Input */}
       <TextField
         label="Search Posts"
         variant="outlined"
@@ -90,8 +80,6 @@ const PostDetails: React.FC<any> = ({ user }) => {
           marginBottom: 2,
         }}
       />
-
-      {/* Posts Section */}
       <Box>
         {isLoading ? (
           <CircularProgress />
@@ -110,21 +98,21 @@ const PostDetails: React.FC<any> = ({ user }) => {
                   borderRadius: 2,
                 }}
               >
-                <Typography variant="h6" sx={{color:"#000"}}>{post.content}</Typography>
+                <Typography variant="h6" sx={{ color: '#000' }}>
+                  {post.content}
+                </Typography>
                 <Typography variant="body2" color="textSecondary">
                   {new Date(post.createdAt).toLocaleString()}
                 </Typography>
-
-                {/* Comments */}
                 <List>
                   {post.comments?.map((comment: any) => (
                     <ListItem key={comment.id}>
-                      <Typography variant="body2" sx={{color:"#000"}}>{comment.content}</Typography>
+                      <Typography variant="body2" sx={{ color: '#000' }}>
+                        {comment.content}
+                      </Typography>
                     </ListItem>
                   ))}
                 </List>
-
-                {/* Add Comment */}
                 <TextField
                   label="Add a comment"
                   variant="outlined"

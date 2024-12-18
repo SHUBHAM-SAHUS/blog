@@ -18,11 +18,6 @@ class PostAPIService {
     this.services = new CoreAPIService(baseURL as string);
   }
 
-  //   SingUp = async (data: any) => {
-  //     const endpoint = `${SIGN_UP}`;
-  //     return await this.services.post(endpoint, data);
-  //   };
-
   userPost = async (id: string) => {
     const endpoint = `${GET_USER_POSTS}?user_id=${id}`;
     return this.services.get<any>(endpoint);
@@ -33,7 +28,7 @@ class PostAPIService {
     return this.services.post(endpoint, data);
   };
 
-  updatePost = async (id:string,data: any) => {
+  updatePost = async (id: string, data: any) => {
     const endpoint = `${UPDATE_USER}/${id}`;
     return this.services.put(endpoint, data);
   };
@@ -41,5 +36,3 @@ class PostAPIService {
 
 const PostAPIServices = new PostAPIService(BASE_API_URL);
 export default PostAPIServices;
-
-;

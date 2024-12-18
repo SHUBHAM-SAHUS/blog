@@ -17,15 +17,12 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-// import useUpdateUser from '@/hooks/useUpdateUser';
 import { RootState } from '@/lib/redux/store';
 import { statusOptions } from '@/utils';
 import { useCreatePost } from '@/hooks/API';
-// import { statusOptions } from '@/constants/constants';
 
 const EditProfile: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  // const { updateUser, error, success, loading } = useUpdateUser();
   const { updatePost, updatePostIsLoading } = useCreatePost();
 
   const [formData, setFormData] = useState({
@@ -43,7 +40,6 @@ const EditProfile: React.FC = () => {
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
 
   useEffect(() => {
-    // If the user data changes (e.g., after a successful update), reset the form data
     if (user) {
       setFormData({
         fullname: user.fullname ?? '',
@@ -56,18 +52,6 @@ const EditProfile: React.FC = () => {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   // Show success alert for 5 seconds when the success flag is true
-  //   if (success) {
-  //     setShowSuccessAlert(true);
-  //     const timer = setTimeout(() => {
-  //       setShowSuccessAlert(false);
-  //     }, 5000); // Hide alert after 5 seconds
-
-  //     return () => clearTimeout(timer); // Cleanup timeout on unmount or when success changes
-  //   }
-  // }, [success]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -79,27 +63,25 @@ const EditProfile: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     if (url) {
-      setImagePreview(url); // Update the preview image as the URL is entered
+      setImagePreview(url);
       setFormData((prevData) => ({
         ...prevData,
-        profile_image: url, // Store the URL in the form data
+        profile_image: url,
       }));
     }
   };
 
   const handleStatusChange = (e: SelectChangeEvent<string>) => {
     const value = e.target.value;
-    // Only update the status if it's not the "custom" option
     if (value !== 'status') {
       setFormData((prevData) => ({
         ...prevData,
         status: value,
       }));
     } else {
-      // Set the status to "custom" only when explicitly selected
       setFormData((prevData) => ({
         ...prevData,
-        status: '', // You can also use "" to clear the status or handle it differently
+        status: '',
       }));
     }
   };
@@ -113,7 +95,7 @@ const EditProfile: React.FC = () => {
     }
 
     const { id, password, posts, connections } = user;
-    // Only update if there's a change in any field
+
     if (
       formData.fullname !== user.fullname ||
       formData.username !== user.username ||
@@ -121,33 +103,17 @@ const EditProfile: React.FC = () => {
       formData.status !== user.status ||
       formData.profile_image !== user.profile_image
     ) {
-      // await updateUser(
-      //   id,
-      //   formData.fullname,
-      //   formData.username,
-      //   formData.email,
-      //   formData.status,
-      //   formData.profile_image,
-      //   password || '',
-      //   posts,
-      //   connections,
-      // );
-
-     const payload = {
-       id,
-       fullname: formData.fullname,
-       username: formData.username,
-       email: formData.email,
-       status: formData.status,
-       profile_image: formData.profile_image,
-       password: password || '',
-       posts,
-       connections,
+      const payload = {
+        id,
+        fullname: formData.fullname,
+        username: formData.username,
+        email: formData.email,
+        status: formData.status,
+        profile_image: formData.profile_image,
+        password: password || '',
+        posts,
+        connections,
       };
-      
-
-
-
 
       updatePost(payload);
 
@@ -202,7 +168,7 @@ const EditProfile: React.FC = () => {
             onChange={handleChange}
             fullWidth
             variant="outlined"
-            disabled // Username can't be changed
+            disabled
             sx={{
               input: { color: '#000000' },
               marginTop: '1rem',
@@ -216,42 +182,32 @@ const EditProfile: React.FC = () => {
             onChange={handleChange}
             fullWidth
             variant="outlined"
-            disabled // Username can't be changed
+            disabled
             sx={{
               input: { color: '#000000' },
               marginTop: '1rem',
             }}
           />
 
-          {/* <TextField
-            label="Status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-          /> */}
-
-          {/* Status dropdown */}
           <FormControl fullWidth variant="outlined">
             <InputLabel id="status-label">Status</InputLabel>
             <Select
               labelId="status-label"
               label="Status"
               name="status"
-              value={formData.status || 'status'} // Default to 'status' if no status is selected
+              value={formData.status || 'status'}
               onChange={handleStatusChange}
               fullWidth
               sx={{
-                color: 'black', // Ensure the selected value is black
+                color: 'black',
                 '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black', // Set the border color to black
+                  borderColor: 'black',
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'black', // Ensure border remains black when focused
+                  borderColor: 'black',
                 },
                 '& .MuiSvgIcon-root': {
-                  color: 'black', // Ensure the arrow icon is black
+                  color: 'black',
                 },
               }}
             >
@@ -259,15 +215,15 @@ const EditProfile: React.FC = () => {
                 value="status"
                 disabled
                 sx={{
-                  color: 'black', // Ensure the selected value is black
+                  color: 'black',
                   '.MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black', // Set the border color to black
+                    borderColor: 'black',
                   },
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black', // Ensure border remains black when focused
+                    borderColor: 'black',
                   },
                   '& .MuiSvgIcon-root': {
-                    color: 'black', // Ensure the arrow icon is black
+                    color: 'black',
                   },
                 }}
               >
@@ -278,15 +234,15 @@ const EditProfile: React.FC = () => {
                   key={option.value}
                   value={option.value}
                   sx={{
-                    color: 'black', // Ensure the selected value is black
+                    color: 'black',
                     '.MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'black', // Set the border color to black
+                      borderColor: 'black',
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'black', // Ensure border remains black when focused
+                      borderColor: 'black',
                     },
                     '& .MuiSvgIcon-root': {
-                      color: 'black', // Ensure the arrow icon is black
+                      color: 'black',
                     },
                   }}
                 >
@@ -309,10 +265,6 @@ const EditProfile: React.FC = () => {
             )}
           </Button>
 
-          {/* Error Message */}
-          {/* {error && <Typography color="error">{error}</Typography>} */}
-
-          {/* Validation Error Message */}
           {validation && (
             <Typography variant="body2" color="error" sx={{ mb: 2 }}>
               {validation}

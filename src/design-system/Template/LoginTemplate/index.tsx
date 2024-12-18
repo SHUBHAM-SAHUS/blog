@@ -1,15 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import useAuthService from '@/hooks/API/useAuthService';
 import { InputComponent } from '@/design-system/Atoms';
 import Cookies from 'js-cookie';
 import { login as setLogin } from '@/lib/redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
-import { routeModule } from 'next/dist/build/templates/pages';
 import { useRouter } from 'next/navigation';
-
 
 interface Credentials {
   username: string;
@@ -17,8 +15,8 @@ interface Credentials {
 }
 
 const LoginTemplate: React.FC = () => {
-  const dispatch = useDispatch()
-  const router  = useRouter()
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { login } = useAuthService();
   const [credentials, setCredentials] = useState<Credentials>({
     username: '',
@@ -37,10 +35,6 @@ const LoginTemplate: React.FC = () => {
   const validateForm = () => {
     const newErrors: { username?: string; password?: string } = {};
 
-    // Email validation
-    
-
-    // Password validation
     if (!credentials.password) {
       newErrors.password = 'Password is required';
     } else if (credentials.password.length < 6) {
@@ -48,29 +42,27 @@ const LoginTemplate: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: '' })); // Clear the error for the field
+    setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
-  const handleLogin = async() => {
-      if (validateForm()) {
-        const user = await login(credentials.username, credentials.password);
-        debugger
-        if (user) {
-          const updatedUser = { ...user, password: credentials.password };
-          Cookies.set('user', JSON.stringify(updatedUser));
-          dispatch(setLogin(user)); 
-          router.push(`/dashboard/${user.username}`);
-        }
+  const handleLogin = async () => {
+    if (validateForm()) {
+      const user = await login(credentials.username, credentials.password);
+      if (user) {
+        const updatedUser = { ...user, password: credentials.password };
+        Cookies.set('user', JSON.stringify(updatedUser));
+        dispatch(setLogin(user));
+        router.push(`/dashboard/${user.username}`);
+      }
     }
   };
 
- 
   return (
     <div style={{ maxWidth: '400px', margin: 'auto', padding: '1rem' }}>
       <h2>Login</h2>
@@ -107,15 +99,8 @@ const LoginTemplate: React.FC = () => {
         variant="contained"
         color="primary"
         fullWidth
-        // disabled={loginIsgLoading}
         sx={{ marginTop: '1rem' }}
       >
-        {/* {loginIsgLoading ? (
-          <CircularProgress size={24} color="inherit" />
-        ) : (
-          '
-          '
-        )} */}
         Log In
       </Button>
     </div>

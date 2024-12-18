@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import { Box, Avatar, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 const UserInfo: React.FC<any> = ({ user }) => {
   const router = useRouter();
 
-  console.log("currr",user)
+  console.log('currr', user);
   const handleEditClick = () => {
     if (user?.username) {
-      router.push(`/dashboard/${user?.username}/edit`); // Route to the EditProfile page dynamically
+      router.push(`/dashboard/${user?.username}/edit`);
     }
   };
 
@@ -29,8 +29,7 @@ const UserInfo: React.FC<any> = ({ user }) => {
         flexDirection: 'column',
         alignItems: 'center',
         border: '1px solid #a17fff',
-        borderRadius: "20px",
-       
+        borderRadius: '20px',
       }}
     >
       <Avatar

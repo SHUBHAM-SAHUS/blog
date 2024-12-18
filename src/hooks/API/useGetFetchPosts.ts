@@ -6,15 +6,13 @@ import { useMutation, useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
 const useGetFetchPosts = (userId: string) => {
-    const router = useRouter();
-    
-      const {
-        data: userPosts,
-        isLoading: isAllPostLoading,
-        refetch: refetchUserList,
-      } = useQuery<any>(['userlist'], () => PostAPIServices.userPost(userId));
+  const router = useRouter();
 
-
+  const {
+    data: userPosts,
+    isLoading: isAllPostLoading,
+    refetch: refetchUserList,
+  } = useQuery<any>(['userlist'], () => PostAPIServices.userPost(userId));
 
   return {
     posts: userPosts,

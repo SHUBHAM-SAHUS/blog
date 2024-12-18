@@ -17,12 +17,10 @@ class AuthAPIService {
     return await this.services.post(endpoint, data);
   };
 
-
-  userDetails = async () => { 
+  userDetails = async () => {
     const endpoint = `${LOGIN}`;
     return this.services.get<any>(endpoint);
   };
-    
 }
 
 const AuthAPIServices = new AuthAPIService(BASE_API_URL);

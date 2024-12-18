@@ -13,40 +13,28 @@ import { RootState } from '@/lib/redux/store';
 import { useCreatePost } from '@/hooks/API';
 
 const CreatePostTemplate = () => {
-    // const { createPost, error, success, loading } = useCreatePost();
-    const { createPost, createPostIsLoading } = useCreatePost();
-
+  const { createPost, createPostIsLoading } = useCreatePost();
   const [content, setContent] = useState('');
   const user = useSelector((state: RootState) => state.auth.user);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-      if (user?.id) {
-          const payload = {
-            user_id: user?.id,
-            content,
-            createdAt: new Date().toISOString(), // Timestamp for the post creation
-            comments: [], // Initialize comments as empty
-          };
-          
-          
-          createPost(payload);
-    //   createPost(user?.id, content); // Pass the user ID and content to create the post
+    if (user?.id) {
+      const payload = {
+        user_id: user?.id,
+        content,
+        createdAt: new Date().toISOString(),
+        comments: [],
+      };
+      createPost(payload);
     }
   };
-
-//   React.useEffect(() => {
-//     if (success) {
-//       setContent(''); // Clear content after successful post
-//     }
-//   }, [success]);
 
   return (
     <Box sx={{ maxWidth: 600, margin: '0 auto', padding: 2 }}>
       <Typography variant="h4" gutterBottom>
         Create a New Post
       </Typography>
-
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
@@ -61,7 +49,6 @@ const CreatePostTemplate = () => {
             },
           }}
         />
-
         <Box
           sx={{
             display: 'flex',
@@ -83,18 +70,6 @@ const CreatePostTemplate = () => {
           </Button>
         </Box>
       </form>
-
-      {/* {success && (
-        <Typography color="success.main" sx={{ mt: 2 }}>
-          Post successfully created!
-        </Typography>
-      )} */}
-
-      {/* {error && (
-        <Typography color="error" sx={{ mt: 2 }}>
-          Error: {error}
-        </Typography>
-      )} */}
     </Box>
   );
 };

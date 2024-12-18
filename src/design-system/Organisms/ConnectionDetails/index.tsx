@@ -9,27 +9,20 @@ import {
   Typography,
   Grid,
 } from '@mui/material';
-// import { User } from '../types/user';
-import { useRouter } from 'next/navigation'; // For routing to the profile pag
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { User } from '@/utils/interfaces';
 
 const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
-
-
-  
-   const userConnections = useSelector(
-     (state: any) => state.auth.user.connections,
-   );
-   const result = connections?.filter((connection) =>
-     userConnections.includes(connection.id),
-   );
-
-
-
+  const userConnections = useSelector(
+    (state: any) => state.auth.user.connections,
+  );
+  const result = connections?.filter((connection) =>
+    userConnections.includes(connection.id),
+  );
 
   const [search, setSearch] = useState('');
-  const router = useRouter(); // For routing to the profile page
+  const router = useRouter();
 
   const filteredConnections = result?.filter(
     (user) =>
@@ -37,16 +30,12 @@ const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
       user?.username?.toLowerCase().includes(search.toLowerCase()),
   );
 
-  // Handle navigating to the user's profile page
   const handleNavigateToProfile = (userId: string) => {
     router.push(`/profile/${userId}`);
   };
 
-
-
   return (
     <Box sx={{ width: 300, padding: 2 }}>
-      {/* Search for connections */}
       <TextField
         label="Search Users"
         variant="outlined"
@@ -57,24 +46,16 @@ const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
           marginTop: '1rem',
         }}
       />
-
-      {/* Display filtered connections */}
       <Grid container spacing={2} sx={{ marginTop: 2 }}>
         {filteredConnections?.map((user) => (
-          <Grid
-            item
-            xs={12} // Full width on extra small screens
-            sm={6} // Two items per row on small screens
-            md={4} // Three items per row on medium screens and above
-            key={user.id}
-          >
+          <Grid item xs={12} sm={6} md={4} key={user.id}>
             <Box
               sx={{
-                textAlign:"center",
+                textAlign: 'center',
                 cursor: 'pointer',
                 backgroundColor: '#fff',
               }}
-              onClick={() => handleNavigateToProfile(user.id)} // Navigate on click
+              onClick={() => handleNavigateToProfile(user.id)}
             >
               <Avatar
                 alt={user.fullname}

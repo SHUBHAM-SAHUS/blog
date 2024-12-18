@@ -20,7 +20,3 @@ const useUserList = () => {
 };
 
 export default useUserList;
-
-
-
-
