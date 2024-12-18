@@ -55,6 +55,7 @@ const LoginTemplate: React.FC = () => {
     if (validateForm()) {
       const user = await login(credentials.username, credentials.password);
       if (user) {
+        debugger
         const updatedUser = { ...user, password: credentials.password };
         Cookies.set('user', JSON.stringify(updatedUser));
         dispatch(setLogin(user));

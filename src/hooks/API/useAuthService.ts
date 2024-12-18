@@ -13,11 +13,14 @@ const useAuthService = () => {
         (user: any) => user.username === username && user.password === password,
       );
 
+
+      debugger
+
       if (user) {
         return {
           id: user.id,
           username: user.username,
-          fullname: user.fullname,
+          fullname: user.fullName,
           email: user.email,
           status: user.status,
           profile_image: user.profile_image,

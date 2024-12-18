@@ -20,8 +20,8 @@
 *.pem
 
 # environment variables
-.env.development
-.env.production
-.env.qa
+# .env.development
+# .env.production
+# .env.qa
 # next.js cache
 .next/cache

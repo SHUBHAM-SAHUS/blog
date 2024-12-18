@@ -9,6 +9,31 @@
       "status": "Busy",
       "profile_image": "https://via.placeholder.com/150",
       "connections": []
+    },
+    {
+      "id": "c08a",
+      "username": "AJAY",
+      "password": "123456",
+      "email": "ajay@gmail.com",
+      "fullName": "AJAY",
+      "status": "Busy",
+      "profile_image": "https://via.placeholder.com/150",
+      "connections": [
+        "9e61"
+      ]
+    },
+    {
+      "id": "b1cd",
+      "fullname": "pawan",
+      "username": "pawan",
+      "email": "pawan@gmail.com",
+      "status": "available",
+      "profile_image": "https://loremflickr.com/320/240/dog",
+      "password": "",
+      "connections": [
+        "9e61",
+        "c08a"
+      ]
     }
   ],
   "posts": [],

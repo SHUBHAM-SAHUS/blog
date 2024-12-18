@@ -32,6 +32,7 @@ const EditProfile: React.FC = () => {
     status: user?.status ?? '',
     profile_image: user?.profile_image ?? '',
   });
+  console.log('username..',user)
 
   const [imagePreview, setImagePreview] = useState<string>(
     user?.profile_image || '',
@@ -94,7 +95,7 @@ const EditProfile: React.FC = () => {
       return;
     }
 
-    const { id, password, posts, connections } = user;
+    const { id, password, posts, connections,fullname } = user;
 
     if (
       formData.fullname !== user.fullname ||

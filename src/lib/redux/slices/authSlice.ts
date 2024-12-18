@@ -1,7 +1,7 @@
 'use client';
 
+import { User } from '@/utils/interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '@/components/types/user';
 import Cookies from 'js-cookie';
 
 interface AuthState {

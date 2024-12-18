@@ -1,15 +1,33 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Container, Typography, Box, Alert } from '@mui/material';
+// import { Container, Typography, Box, Alert } from '@mui/material';
 import { ButtonComponent, InputComponent } from '@/design-system/Atoms';
 import useAuthService from '@/hooks/API/useAuthService';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Avatar,
+  Stack,
+  CircularProgress,
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  Container,
+} from '@mui/material';
+import { statusOptions } from '@/utils';
 
 interface FormData {
   fullName: string;
   username: string;
   email: string;
   password: string;
+  status: string;
 }
 
 interface Errors {
@@ -17,6 +35,7 @@ interface Errors {
   username?: string;
   email?: string;
   password?: string;
+  status?: string;
 }
 
 const SignUpTemplate: React.FC = () => {
@@ -27,7 +46,9 @@ const SignUpTemplate: React.FC = () => {
     username: '',
     email: '',
     password: '',
+    status: 'status', // Default value for the status field
   });
+
 
   const [errors, setErrors] = useState<Errors>({});
 
@@ -71,11 +92,21 @@ const SignUpTemplate: React.FC = () => {
 
     debugger;
     if (validateForm()) {
-      const { fullName, username, email, password } = formData;
+      const { fullName, username, email, password,status } = formData;
       debugger;
-      signUp(username, password, email, fullName);
+      signUp(username, password, email, fullName,status);
     }
   };
+
+   const handleStatusChange = (e: SelectChangeEvent<string>) => {
+     const value = e.target.value;
+     setFormData((prevData) => ({
+       ...prevData,
+       status: value === 'status' ? '' : value, // Reset if "status" is selected
+     }));
+   };
+
+  
 
   return (
     <Container maxWidth="sm" sx={{ mt: 5 }}>
@@ -148,6 +179,68 @@ const SignUpTemplate: React.FC = () => {
             marginTop: '1rem',
           }}
         />
+        <FormControl fullWidth variant="outlined">
+          <InputLabel id="status-label">Status</InputLabel>
+          <Select
+            labelId="status-label"
+            label="Status"
+            name="status"
+            value={formData.status || 'status'}
+            onChange={handleStatusChange}
+            fullWidth
+            sx={{
+              color: 'black',
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: 'black',
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'black',
+              },
+              '& .MuiSvgIcon-root': {
+                color: 'black',
+              },
+            }}
+          >
+            <MenuItem
+              value="status"
+              disabled
+              sx={{
+                color: 'black',
+                '.MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'black',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'black',
+                },
+                '& .MuiSvgIcon-root': {
+                  color: 'black',
+                },
+              }}
+            >
+              Status...
+            </MenuItem>
+            {statusOptions.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                sx={{
+                  color: 'black',
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    color: 'black',
+                  },
+                }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <ButtonComponent
           type="submit"
           label="Sign Up"
