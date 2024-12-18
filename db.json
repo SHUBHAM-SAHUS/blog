@@ -82,10 +82,27 @@
     },
     {
       "id": "e1eb",
+      "fullname": "",
+      "username": "sonam",
+      "email": "sonam@gmail.com",
+      "status": "available",
+      "profile_image": "https://via.placeholder.com/150",
+      "password": "123456",
+      "connections": [
+        "4e2a",
+        "79a8",
+        "1ce9",
+        "6e76",
+        "681c",
+        "5ab4"
+      ]
+    },
+    {
+      "id": "4477",
       "username": "sonam",
       "password": "123456",
-      "email": "sonam@gmail.com",
-      "fullName": "sonam",
+      "email": "vishal@gmail.com",
+      "fullName": "vishal",
       "status": "Busy",
       "profile_image": "https://via.placeholder.com/150",
       "connections": [
@@ -94,7 +111,47 @@
         "1ce9",
         "6e76",
         "681c",
-        "5ab4"
+        "5ab4",
+        "e1eb"
+      ]
+    },
+    {
+      "id": "6733",
+      "fullname": "gg",
+      "username": "divy",
+      "email": "divya@gmail.com",
+      "status": "“travelling”",
+      "profile_image": "https://loremflickr.com/320/240/dog",
+      "password": "123456",
+      "connections": [
+        "4e2a",
+        "79a8",
+        "1ce9",
+        "6e76",
+        "681c",
+        "5ab4",
+        "e1eb",
+        "4477"
+      ]
+    },
+    {
+      "id": "c5f1",
+      "fullname": "",
+      "username": "sameer",
+      "email": "sameer@gmail.com",
+      "status": "busy",
+      "profile_image": "https://via.placeholder.com/150",
+      "password": "",
+      "connections": [
+        "4e2a",
+        "79a8",
+        "1ce9",
+        "6e76",
+        "681c",
+        "5ab4",
+        "e1eb",
+        "4477",
+        "6733"
       ]
     }
   ],
@@ -118,6 +175,20 @@
       "user_id": "681c",
       "content": "vgvg",
       "createdAt": "2024-12-17T18:24:51.816Z",
+      "comments": []
+    },
+    {
+      "id": "dbdc",
+      "user_id": "e1eb",
+      "content": "fcf",
+      "createdAt": "2024-12-18T06:51:36.560Z",
+      "comments": []
+    },
+    {
+      "id": "5595",
+      "user_id": "e1eb",
+      "content": "hbh",
+      "createdAt": "2024-12-18T06:52:13.044Z",
       "comments": []
     }
   ],
@@ -145,6 +216,12 @@
       "post_id": "f5fb",
       "user_id": "681c",
       "content": "vvg g"
+    },
+    {
+      "id": "437f",
+      "post_id": "dbdc",
+      "user_id": "e1eb",
+      "content": "bhgvb"
     }
   ]
 }

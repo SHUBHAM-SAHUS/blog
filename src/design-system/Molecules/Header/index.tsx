@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/lib/redux/store';
 import { logout } from '@/lib/redux/slices/authSlice';
 import Cookies from 'js-cookie';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -33,19 +34,23 @@ const Header: React.FC = () => {
       <Container maxWidth="lg">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Link href="/" passHref>
+            <Link href="/" passHref style={{ textDecoration: 'none' }}>
               <Typography
                 variant="h6"
-                sx={{ cursor: 'pointer', color: 'white' }}
+                sx={{ cursor: 'pointer', color: 'white', fontSize: '19px' }}
               >
                 Home
               </Typography>
             </Link>
             {user?.username && (
-              <Link href={`/dashboard/${user.username}`} passHref>
+              <Link
+                href={`/dashboard/${user.username}`}
+                style={{ textDecoration: 'none' }}
+                passHref
+              >
                 <Typography
                   variant="h6"
-                  sx={{ cursor: 'pointer', color: 'white' }}
+                  sx={{ cursor: 'pointer', color: 'white', fontSize: '19px' }}
                 >
                   My Dashboard
                 </Typography>
@@ -63,10 +68,19 @@ const Header: React.FC = () => {
                 </Typography>
                 <Button
                   variant="contained"
-                  color="secondary"
                   onClick={handleLogout}
+                  sx={{
+                    backgroundColor: 'white',
+                    color: '#a17fff',
+                    fontWeight: '500',
+                    textTransform: 'capitalize',
+                    '&:hover': {
+                      color: 'white',
+                    },
+                  }}
                 >
-                  Logout
+                  Logout{' '}
+                  <LogoutIcon sx={{ width: '14px', marginLeft: '4px' }} />
                 </Button>
               </>
             ) : (

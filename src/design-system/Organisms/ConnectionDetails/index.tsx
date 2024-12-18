@@ -7,6 +7,7 @@ import {
   ListItem,
   Avatar,
   Typography,
+  Grid,
 } from '@mui/material';
 // import { User } from '../types/user';
 import { useRouter } from 'next/navigation'; // For routing to the profile pag
@@ -58,32 +59,38 @@ const ConnectionDetails = ({ connections }: { connections?: User[] }) => {
       />
 
       {/* Display filtered connections */}
-      <List>
+      <Grid container spacing={2} sx={{ marginTop: 2 }}>
         {filteredConnections?.map((user) => (
-          <ListItem
+          <Grid
+            item
+            xs={12} // Full width on extra small screens
+            sm={6} // Two items per row on small screens
+            md={4} // Three items per row on medium screens and above
             key={user.id}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-              marginBottom: 2,
-            }}
-            onClick={() => handleNavigateToProfile(user.id)} // Navigate on click
           >
-            <Avatar
-              alt={user.fullname}
-              src={user.profile_image}
-              sx={{ width: 40, height: 40 }}
-            />
-            <Box sx={{ marginLeft: 2 }}>
-              <Typography variant="body1">{user.fullname}</Typography>
-              <Typography variant="body2" color="textSecondary">
-                {user.username}
-              </Typography>
+            <Box
+              sx={{
+                textAlign:"center",
+                cursor: 'pointer',
+                backgroundColor: '#fff',
+              }}
+              onClick={() => handleNavigateToProfile(user.id)} // Navigate on click
+            >
+              <Avatar
+                alt={user.fullname}
+                src={user.profile_image}
+                sx={{ width: 40, height: 40 }}
+              />
+              <Box sx={{ marginLeft: 2 }}>
+                <Typography variant="body1">{user.fullname}</Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {user.username}
+                </Typography>
+              </Box>
             </Box>
-          </ListItem>
+          </Grid>
         ))}
-      </List>
+      </Grid>
     </Box>
   );
 };

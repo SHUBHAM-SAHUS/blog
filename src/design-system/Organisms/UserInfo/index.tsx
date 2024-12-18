@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 const UserInfo: React.FC<any> = ({ user }) => {
   const router = useRouter();
 
+  console.log("currr",user)
   const handleEditClick = () => {
     if (user?.username) {
       router.push(`/dashboard/${user?.username}/edit`); // Route to the EditProfile page dynamically
@@ -23,11 +24,13 @@ const UserInfo: React.FC<any> = ({ user }) => {
   return (
     <Box
       sx={{
-        width: 300,
-        padding: 2,
+        padding: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        border: '1px solid #a17fff',
+        borderRadius: "20px",
+       
       }}
     >
       <Avatar
@@ -39,7 +42,7 @@ const UserInfo: React.FC<any> = ({ user }) => {
         {user.fullname}
       </Typography>
       <Typography variant="body2" color="textSecondary" align="center">
-        {user.status}
+        {user.status}...
       </Typography>
       <Button
         variant="outlined"

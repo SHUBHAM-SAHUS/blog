@@ -143,9 +143,13 @@ const EditProfile: React.FC = () => {
        password: password || '',
        posts,
        connections,
-     };
+      };
+      
 
-      updatePost(id, payload);
+
+
+
+      updatePost(payload);
 
       setValidation('');
     } else {
@@ -172,7 +176,10 @@ const EditProfile: React.FC = () => {
             onChange={handleImageChange}
             fullWidth
             variant="outlined"
-            sx={{ marginTop: 2 }}
+            sx={{
+              input: { color: '#000000' },
+              marginTop: '1rem',
+            }}
           />
 
           <TextField
@@ -182,6 +189,10 @@ const EditProfile: React.FC = () => {
             onChange={handleChange}
             fullWidth
             variant="outlined"
+            sx={{
+              input: { color: '#000000' },
+              marginTop: '1rem',
+            }}
           />
 
           <TextField
@@ -192,6 +203,10 @@ const EditProfile: React.FC = () => {
             fullWidth
             variant="outlined"
             disabled // Username can't be changed
+            sx={{
+              input: { color: '#000000' },
+              marginTop: '1rem',
+            }}
           />
 
           <TextField
@@ -202,6 +217,10 @@ const EditProfile: React.FC = () => {
             fullWidth
             variant="outlined"
             disabled // Username can't be changed
+            sx={{
+              input: { color: '#000000' },
+              marginTop: '1rem',
+            }}
           />
 
           {/* <TextField
@@ -223,12 +242,54 @@ const EditProfile: React.FC = () => {
               value={formData.status || 'status'} // Default to 'status' if no status is selected
               onChange={handleStatusChange}
               fullWidth
+              sx={{
+                color: 'black', // Ensure the selected value is black
+                '.MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'black', // Set the border color to black
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'black', // Ensure border remains black when focused
+                },
+                '& .MuiSvgIcon-root': {
+                  color: 'black', // Ensure the arrow icon is black
+                },
+              }}
             >
-              <MenuItem value="status" disabled>
+              <MenuItem
+                value="status"
+                disabled
+                sx={{
+                  color: 'black', // Ensure the selected value is black
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black', // Set the border color to black
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black', // Ensure border remains black when focused
+                  },
+                  '& .MuiSvgIcon-root': {
+                    color: 'black', // Ensure the arrow icon is black
+                  },
+                }}
+              >
                 Status...
               </MenuItem>
               {statusOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                  sx={{
+                    color: 'black', // Ensure the selected value is black
+                    '.MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'black', // Set the border color to black
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'black', // Ensure border remains black when focused
+                    },
+                    '& .MuiSvgIcon-root': {
+                      color: 'black', // Ensure the arrow icon is black
+                    },
+                  }}
+                >
                   {option.label}
                 </MenuItem>
               ))}

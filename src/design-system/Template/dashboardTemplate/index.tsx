@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useUserList } from '@/hooks/API';
 import { UserInfo } from '@/design-system/Organisms';
 import PostDetails from '@/design-system/Organisms/PostDetails';
+import Grid from '@mui/material/Grid';
 import ConnectionDetails from '@/design-system/Organisms/ConnectionDetails';
 // import useGetAllUsers from '@/hooks/useGetUsers';
 
@@ -25,16 +26,15 @@ interface User {
 }
 
 const UserDashboard: React.FC = () => {
-    //   const { users } = useGetAllUsers(); // Assuming this returns an array of User objects
+  //   const { users } = useGetAllUsers(); // Assuming this returns an array of User objects
   const { users, isAllProfileTagsLoading, refetchUserList } = useUserList();
-  
-
-  console.log('users', users);
-
   const router = useRouter();
   const user = useSelector(
     (state: RootState) => state.auth.user as User | null,
   );
+  console.log('userrr',users)
+
+
 
   if (!user) {
     return (
@@ -69,10 +69,20 @@ const UserDashboard: React.FC = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
-      <UserInfo user={user} />
-      <PostDetails user={user} />
-      <ConnectionDetails connections={users} />
+    <Box sx={{ display: 'flex', gap: 2, marginTop: '2rem' }}>
+      <Container maxWidth="xl">
+        <Grid container spacing={2}>
+          <Grid item sm={6} md={3}>
+            <UserInfo user={user} />
+          </Grid>
+          <Grid item sm={6} md={6}>
+            <PostDetails user={user} />
+          </Grid>
+          <Grid item sm={6} md={3}>
+           <ConnectionDetails connections={users} />
+          </Grid>
+        </Grid>
+      </Container>
     </Box>
   );
 };

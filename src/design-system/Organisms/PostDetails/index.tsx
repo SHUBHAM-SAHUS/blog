@@ -85,7 +85,10 @@ const PostDetails: React.FC<any> = ({ user }) => {
         fullWidth
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        sx={{ input: { color: '#000' }, marginBottom: 2 }}
+        sx={{
+          input: { color: '#000' },
+          marginBottom: 2,
+        }}
       />
 
       {/* Posts Section */}
